@@ -1,7 +1,6 @@
 package Warmup1;
 
 public class mixStart {
-v
 
     public boolean mixStart(String str) {
         if (str.length() >= 3) {
