@@ -24,12 +24,27 @@ public class MainClass {
         department3 . name ="Maths";
         department3 . address ="Dublin";
 
+        Employee employee1 = new Employee();
+        employee1.empId ="597";
+        employee1.Age ="22";
+        employee1.empName="aaa";
+        employee1.isManager="false";
+
+        Employee employee2 = new Employee();
+        employee2.empId ="598";
+        employee2.Age ="23";
+        employee2.empName="bbb";
+        employee2.isManager="True";
+
+
 
         System.out.println( bird1);
         System.out.println( bird2);
         System.out.println( department1);
         System.out.println( department2);
         System.out.println( department3);
+        System.out.println( employee1);
+        System.out.println( employee2);
 
     }
 }
