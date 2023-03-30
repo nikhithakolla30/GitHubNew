@@ -1,5 +1,6 @@
 package com.SpringBootProject1.SpringBoot1.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloController11 {
+
     public static void main(String[] args){}
+    @Value("${welcome.message}")
+    private String welcomeMessage;
       @GetMapping("/")
 
         public String helloworld () {
-            return "welcome to code buffer !!!!!!!! aaaa";
+
+        return welcomeMessage;
         }
     }
