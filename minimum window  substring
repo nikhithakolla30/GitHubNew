@@ -1,0 +1,48 @@
+import java.util.*;
+
+class Solution {
+    public String minWindow(String s, String t) {
+        if (s.length() < t.length()) {
+            return "";
+        }
+
+        Map<Character, Integer> targetFreq = new HashMap<>();
+        for (char c : t.toCharArray()) {
+            targetFreq.put(c, targetFreq.getOrDefault(c, 0) + 1);
+        }
+
+        int left = 0, right = 0;
+        int minWindowLength = Integer.MAX_VALUE;
+        int minWindowStart = 0;
+        int required = targetFreq.size();
+        int formed = 0;
+
+        Map<Character, Integer> windowFreq = new HashMap<>();
+
+        while (right < s.length()) {
+            char current = s.charAt(right);
+            windowFreq.put(current, windowFreq.getOrDefault(current, 0) + 1);
+
+            if (targetFreq.containsKey(current) && windowFreq.get(current).intValue() == targetFreq.get(current).intValue()) {
+                formed++;
+            }
+
+            while (left <= right && formed == required) {
+                if (right - left + 1 < minWindowLength) {
+                    minWindowLength = right - left + 1;
+                    minWindowStart = left;
+                }
+
+                char leftChar = s.charAt(left);
+                windowFreq.put(leftChar, windowFreq.get(leftChar) - 1);
+                if (targetFreq.containsKey(leftChar) && windowFreq.get(leftChar).intValue() < targetFreq.get(leftChar).intValue()) {
+                    formed--;
+                }
+                left++;
+            }
+            right++;
+        }
+
+        return minWindowLength == Integer.MAX_VALUE ? "" : s.substring(minWindowStart, minWindowStart + minWindowLength);
+    }
+}
