@@ -1,0 +1,49 @@
+class Solution {
+    class Pair{
+        TreeNode node;
+        int len;
+        int dir;
+        
+        public Pair(TreeNode node, int len, int dir){
+            this.node = node;
+            this.len = len;
+            this.dir = dir;
+        }
+    }
+    
+    //0: gone left, 1: gone right
+    public int longestZigZag(TreeNode root) {
+        if(root == null) return 0;
+        if(root.left == null && root.right == null) return 0;
+        int max = Integer.MIN_VALUE;
+        Queue<Pair> que = new ArrayDeque<>();
+        
+        que.add(new Pair(root, 0, -1));
+        
+        while(que.size()!=0){
+            Pair rem = que.poll();
+            if(rem.len > max) max = rem.len;
+            
+            if(rem.dir == -1){ //for processing the root node
+                if(rem.node.left!=null) que.add(new Pair(rem.node.left, rem.len+1, 0));
+                if(rem.node.right!=null) que.add(new Pair(rem.node.right, rem.len+1, 1));
+            }
+            else if(rem.dir == 0){ //if we have gone left in the prev step, the len of path will increase only if we go right in this step
+                if(rem.node.right!=null) que.add(new Pair(rem.node.right, rem.len+1, 1));
+                if(rem.node.left!=null){
+                    if(rem.node.left.right !=null) que.add(new Pair(rem.node.left, 1, 0));
+                    else que.add(new Pair(rem.node.left, 0, 0));
+                }
+            }
+            else{
+                if(rem.node.left!=null) que.add(new Pair(rem.node.left, rem.len+1, 0));
+                if(rem.node.right!=null){
+                    if(rem.node.right.left!=null) que.add(new Pair(rem.node.right, 1, 1));
+                    else que.add(new Pair(rem.node.right, 0, 1));
+                }
+            }
+            
+        }
+        return max;
+    }
+}
