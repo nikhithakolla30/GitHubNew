@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+transformers
+pydantic
+langdetect
+deep-translator
+slowapi
+boto3
+prometheus_fastapi_instrumentator
+torch
